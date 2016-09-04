@@ -1,0 +1,29 @@
+﻿<Page
+    x:Class="fastDynClient.MainPage"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:local="using:fastDynClient"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    mc:Ignorable="d">
+    <Page.Resources>
+        <local:Hosts x:Key="HostsDataSource" d:IsDataSource="True"/>
+        <local:StringFormatConverter x:Key="StringFormatConverter"/>
+    </Page.Resources>
+
+    <Grid Background="{ThemeResource ApplicationPageBackgroundThemeBrush}" DataContext="{Binding Source={StaticResource HostsDataSource}}">
+        <Button x:Name="btnGetHostList" Content="Refresh Host List" HorizontalAlignment="Left" Height="41" Margin="548,565,0,0" VerticalAlignment="Top" Width="193" Click="btnGetHostList_Click"/>
+        <ListView x:Name="lvHosts" HorizontalAlignment="Left" Height="480" ItemsSource="{Binding Mode=OneWay}" Margin="90,42,0,0" VerticalAlignment="Top" Width="1098">
+            <ListView.ItemTemplate>
+                <DataTemplate>
+                    <StackPanel Margin="5" Orientation="Horizontal" d:DesignWidth="615.667" d:DesignHeight="50">
+                        <TextBlock TextWrapping="Wrap"  Text="{Binding PartitionKey}" Foreground="Blue" Width="169" Margin="20,0,0,0" FontWeight="Bold" HorizontalAlignment="Left" VerticalAlignment="Center"/>
+                        <TextBlock TextWrapping="Wrap"  Text="{Binding ipaddress}" Foreground="Blue" Width="169" Margin="25,0,0,0" HorizontalAlignment="Left" VerticalAlignment="Center"/>
+                        <TextBlock Text="{Binding udate, Converter={StaticResource StringFormatConverter}, ConverterParameter='Date: {0:dd-MMM-yyyy hh:mm}'}"  Foreground="Blue" HorizontalAlignment="Left" VerticalAlignment="Center" Margin="25,0,0,0" />
+                    </StackPanel>
+                </DataTemplate>
+            </ListView.ItemTemplate>
+        </ListView>
+
+    </Grid>
+</Page>
